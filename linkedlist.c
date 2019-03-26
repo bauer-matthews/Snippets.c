@@ -68,8 +68,20 @@ int get_number(struct NODE *llist) {
     return llist->number; 
 }
 
+// NOTE: Resource leak (file opened and not closed)
+void resource_leak() {
+
+    FILE *fp;
+    fp=fopen("c:\\test.txt", "r");
+
+    if (fp == NULL) {
+        return; 
+    } 
+}
+
 int find(struct NODE *llist, int num) 
 {
+
     int location = 1;
 
     while (llist->next != NULL) 
@@ -82,7 +94,9 @@ int find(struct NODE *llist, int num)
 
     // NOTE: Memory leak
     struct NODE *p = malloc(sizeof(struct NODE));
-    get_number(p); 
+
+    // NOTE: NULL Dereference
+    get_number(p);
 
     if (p == NULL) {
         return (-2);
