@@ -64,6 +64,10 @@ void delete(struct NODE *llist, int num)
     }
 }
 
+int get_number(struct NODE *llist) {
+    return llist->number; 
+}
+
 int find(struct NODE *llist, int num) 
 {
     int location = 1;
@@ -74,6 +78,14 @@ int find(struct NODE *llist, int num)
             return location;
         location++;
         llist = llist->next;
+    }
+
+    // NOTE: Memory leak
+    struct NODE *p = malloc(sizeof(struct NODE));
+    get_number(p); 
+
+    if (p == NULL) {
+        return (-2);
     }
 
     return (-1);
@@ -100,12 +112,20 @@ int main(void)
     int num = 0;
     int input = 1;
     int retval = 0;
+
+    // NOTE: Dead store
+    int dead_store = 5;
       
     // TODO: createList()
     llist = (struct NODE *)malloc(sizeof(struct NODE));
     assert(llist != NULL);
     llist->number = 0;
     llist->next = NULL;
+
+    dead_store = 4;
+    if (dead_store == 3) {
+        return (-1); 
+    }
       
     while (input != 0) 
     {
@@ -160,6 +180,7 @@ int main(void)
      pnode = pnode->next;
   }
   free(llist);
+  
 
   return(0);
 }

@@ -21,7 +21,7 @@
 # Directory layout
 HDRDIR=./hdr/
 SRCDIR=./src/
-OBJDIR=./bin/
+OBJDIR=./
 
 vpath %.h $(HDRDIR)
 vpath %.c $(SRCDIR)
